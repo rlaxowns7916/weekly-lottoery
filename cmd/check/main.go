@@ -38,7 +38,7 @@ func main() {
 
 	var purchased []lottery.PurchasedTicket
 	for _, purchase := range purchases {
-		if purchase.Round == winning.Round+1 {
+		if purchase.Round == winning.Round {
 			purchased = append(purchased, purchase.Tickets...)
 		}
 	}
