@@ -44,8 +44,7 @@ func main() {
 	}
 
 	if len(purchased) == 0 {
-		log.Printf("⚠️  %d회차 구매 내역을 찾을 수 없습니다 (최근 %d일 조회)", winning.Round, purchaseHistoryDays)
-		return
+		log.Fatalf("❌ %d회차 구매 내역을 찾을 수 없습니다 (최근 %d일 조회)", winning.Round, purchaseHistoryDays)
 	}
 
 	// 6. Check each ticket and build summary
