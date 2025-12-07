@@ -8,7 +8,7 @@ import (
 	"weekly-lotto/internal/notify"
 )
 
-const purchaseHistoryDays = 14
+const purchaseHistoryDays = 7
 
 func main() {
 	// 1. Load configuration
