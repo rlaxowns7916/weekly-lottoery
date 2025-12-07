@@ -26,7 +26,7 @@ func main() {
 	log.Println("✅ 로그인 성공")
 
 	// 3. Create 5 automatic tickets
-	tickets := domain.NewAutoTickets(1)
+	tickets := domain.NewAutoTickets(2)
 	log.Printf("📝 자동 %d장 구매 준비", len(tickets))
 
 	// 4. Purchase tickets

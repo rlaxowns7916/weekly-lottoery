@@ -393,7 +393,6 @@ const checkResultTemplateHTML = `<!DOCTYPE html>
               <th>등수</th>
               <th>당첨 인원</th>
               <th>1인당 당첨금</th>
-              <th>총 당첨금</th>
             </tr>
           </thead>
           <tbody>
@@ -402,7 +401,6 @@ const checkResultTemplateHTML = `<!DOCTYPE html>
                 <td>{{.RankLabel}}</td>
                 <td>{{.WinnerCount}}명</td>
                 <td>{{.PrizeAmount}}</td>
-                <td>{{.TotalAmount}}</td>
               </tr>
             {{end}}
           </tbody>
