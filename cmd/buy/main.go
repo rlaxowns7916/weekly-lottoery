@@ -37,9 +37,6 @@ func main() {
 
 	// 5. Print and save purchased numbers
 	log.Printf("✅ 로또 %d장 구매 완료", len(tickets))
-	for _, ticket := range purchased {
-		log.Printf("  슬롯 %s (%s): %v", ticket.Slot, ticket.Mode, ticket.Numbers)
-	}
 
 	// 6. sendEmail
 	if err := emailSender.SendLotteryBuyMail(purchased); err != nil {

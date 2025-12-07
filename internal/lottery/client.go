@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"log/slog"
 	"net/http"
 	"net/http/cookiejar"
 	"net/url"
@@ -327,10 +326,6 @@ func (c *Client) GetWinningNumbers() (*domain.WinningNumbers, error) {
 
 // GetRecentPurchases retrieves purchase history within the given number of days.
 func (c *Client) GetRecentPurchases(days int) ([]PurchaseHistory, error) {
-	if days <= 0 {
-		days = 14
-	}
-
 	end := time.Now()
 	start := end.AddDate(0, 0, -days)
 
@@ -343,12 +338,11 @@ func (c *Client) GetRecentPurchases(days int) ([]PurchaseHistory, error) {
 	for _, summary := range summaries {
 		round, tickets, err := c.fetchPurchaseTickets(summary)
 		if err != nil {
-			slog.Warn("구매 상세 조회 실패", "orderNo", summary.OrderNo, "err", err)
-			continue
+			return nil, fmt.Errorf("구매 상세 조회 실패 (orderNo: %v, err :%v)", summary.OrderNo, err)
 		}
 
 		if round == 0 {
-			continue
+			return nil, fmt.Errorf("구매 상세 조회 - 회차 조회 실패 (orderNo: %v)")
 		}
 
 		histories = append(histories, PurchaseHistory{

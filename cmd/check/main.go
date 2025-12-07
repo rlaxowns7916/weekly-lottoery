@@ -61,24 +61,6 @@ func main() {
 		summary.AddTicket(result)
 	}
 
-	log.Printf("\n🎰 [%d]회 당첨 번호 (%s 추첨)", winning.Round, winning.DrawDate.Format("2006-01-02"))
-	log.Printf("   당첨 번호: %v", winning.Numbers)
-	log.Printf("   보너스: %d", winning.BonusNumber)
-
-	log.Printf("\n💰 [%d회] 당첨금 정보:", winning.Round)
-	for rank := domain.Rank1; rank >= domain.Rank5; rank-- {
-		if prizeInfo, ok := winning.Prizes[rank]; ok {
-			log.Printf("%s", prizeInfo.ToString())
-		}
-	}
-
-	log.Printf("%s", summary.ToString())
-	if summary.HasWinner() {
-		log.Println("\n🎉 축하합니다! 당첨되었습니다!")
-	} else {
-		log.Println("\n😢 당첨되지 않았습니다.")
-	}
-
 	if err := emailSender.SendLotteryCheckResultMail(summary); err != nil {
 		log.Fatalf("❌ 이메일 전송 실패: %v", err)
 	}
