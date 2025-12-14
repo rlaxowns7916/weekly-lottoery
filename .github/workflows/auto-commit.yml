@@ -18,14 +18,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Update README
+      - name: Update auto-commit.txt
         run: |
-          echo "[AUTO-COMMIT] $(date +'%Y-%m-%d')" >> README.md
+          echo "[AUTO-COMMIT] $(date +'%Y-%m-%d')" >> auto-commit.txt
 
       - name: Commit and Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add README.md
+          git add auto-commit.txt
           git commit -m "[AUTO-COMMIT] $(date +'%Y-%m-%d')"
           git push
