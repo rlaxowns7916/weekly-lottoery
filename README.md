@@ -33,3 +33,4 @@ Repository Settings → Secrets and variables → Actions에서 설정:
 - `LOTTO_EMAIL_PASSWORD`: SMTP 인증 비밀번호
 - `LOTTO_EMAIL_FROM`: 발신자 이메일
 - `LOTTO_EMAIL_TO`: 수신자 이메일
+[AUTO-COMMIT] 2025-12-14
