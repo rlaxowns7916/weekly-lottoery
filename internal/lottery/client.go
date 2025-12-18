@@ -167,7 +167,7 @@ func (c *Client) BuyLotto645(tickets []*domain.Lotto645Ticket) ([]PurchasedTicke
 		return nil, fmt.Errorf("ready_ip 획득 실패: %w", err)
 	}
 
-	// 2. Get next round number
+	// 2. Get current round number
 	round, err := c.GetCurrentRound()
 	if err != nil {
 		return nil, fmt.Errorf("회차 정보 조회 실패: %w", err)
@@ -223,7 +223,7 @@ func (c *Client) BuyLotto645(tickets []*domain.Lotto645Ticket) ([]PurchasedTicke
 
 	// 8. Parse purchased numbers
 	// Format: ["A|01|02|04|27|39|443", "B|11|23|25|27|28|452"]
-	purchased := parsePurchasedNumbers(result.Result.ArrGameChoiceNum)
+	purchased := parsePurchasedNumbers(round, result.Result.ArrGameChoiceNum)
 
 	return purchased, nil
 }
@@ -433,7 +433,10 @@ func (c *Client) fetchPurchaseTickets(summary parser.PurchaseSummary) (int, []Pu
 // parsePurchasedNumbers parses purchased number strings.
 // Format: ["A|01|02|04|27|39|443", "B|11|23|25|27|28|452"]
 // slot[0] = A, slot[2:-1] = numbers, slot[-1] = mode (1=수동, 2=반자동, 3=자동)
-func parsePurchasedNumbers(lines []string) []PurchasedTicket {
+func parsePurchasedNumbers(
+	round int,
+	lines []string,
+) []PurchasedTicket {
 	modeMap := map[string]string{
 		"1": "수동",
 		"2": "반자동",
@@ -465,6 +468,7 @@ func parsePurchasedNumbers(lines []string) []PurchasedTicket {
 		}
 
 		tickets = append(tickets, PurchasedTicket{
+			Round:   round,
 			Slot:    slot,
 			Numbers: numbers,
 			Mode:    mode,

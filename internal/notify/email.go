@@ -5,6 +5,7 @@ import (
 	"crypto/tls"
 	"fmt"
 	"html/template"
+	"log"
 	"net/smtp"
 	"strings"
 
@@ -37,6 +38,8 @@ func (s *EmailSender) SendLotteryBuyMail(tickets []lottery.PurchasedTicket) erro
 
 	round := tickets[0].Round
 	subject := fmt.Sprintf("[weekly-lotto] %d회 로또 %d장 구매 완료", round, len(tickets))
+	log.Println(subject)
+
 	return s.send(subject, body, "text/html; charset=UTF-8")
 }
 
